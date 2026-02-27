@@ -40,7 +40,7 @@ class LinkedListBuku:
                 sementara.judul = judul
                 sementara.penulis = penulis
                 sementara.stok = stok
-                self.simpan_ke_file()  # ⬅ PENTING: simpan setelah edit
+                self.simpan_ke_file()  # simpan setelah edit
                 return True
             sementara = sementara.next
         
@@ -86,7 +86,7 @@ class LinkedListBuku:
         with open(self.path_file, "w") as file:
             json.dump(data, file, indent=4)
 
-    # MUAT DARI JSON (FIX ERROR)
+    # MUAT DARI JSON 
     def muat_dari_file(self):
         if not os.path.exists(self.path_file):
             return

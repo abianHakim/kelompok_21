@@ -12,7 +12,6 @@ def tambah_buku():
 
 def edit_buku():
     id_buku = input("Masukkan ID Buku yang ingin diedit: ")
-
     print("Data ditemukan. Masukkan data baru.")
     judul = input("Masukkan Judul Baru: ")
     penulis = input("Masukkan Penulis Baru: ")
@@ -49,6 +48,7 @@ def menu_utama():
         elif pilihan == "2":
             daftar_buku.tampilkan_buku()
         elif pilihan == "3":
+            daftar_buku.tampilkan_buku()
             edit_buku()
         # elif pilihan == "4":
         #     hapus_buku()
