@@ -31,6 +31,21 @@ class LinkedListBuku:
 
         self.simpan_ke_file()
 
+    # EDIT BUKU
+    def edit_buku(self, id_buku, judul, penulis, stok):
+        sementara = self.head
+        
+        while sementara:
+            if sementara.id_buku == id_buku:
+                sementara.judul = judul
+                sementara.penulis = penulis
+                sementara.stok = stok
+                self.simpan_ke_file()  # ⬅ PENTING: simpan setelah edit
+                return True
+            sementara = sementara.next
+        
+        return False
+
     # TAMPILKAN BUKU
     def tampilkan_buku(self):
         if not self.head:

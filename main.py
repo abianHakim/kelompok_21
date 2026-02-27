@@ -10,7 +10,24 @@ def tambah_buku():
     daftar_buku.tambah_buku(id_buku, judul, penulis, stok)
     print("Buku berhasil ditambahkan.")
 
+def edit_buku():
+    id_buku = input("Masukkan ID Buku yang ingin diedit: ")
 
+    print("Data ditemukan. Masukkan data baru.")
+    judul = input("Masukkan Judul Baru: ")
+    penulis = input("Masukkan Penulis Baru: ")
+    stok = int(input("Masukkan Stok Baru: "))
+
+    if daftar_buku.edit_buku(id_buku, judul, penulis, stok):
+        print("Buku berhasil diperbarui.")
+    else:
+        print("Buku dengan ID tersebut tidak ditemukan.")
+        
+        
+def tampilkan_riwayat(status=None):
+    pass
+    
+        
 def menu_utama():
     while True:
         print("\n=== SISTEM PERPUSTAKAAN ===")
@@ -31,8 +48,8 @@ def menu_utama():
             tambah_buku()
         elif pilihan == "2":
             daftar_buku.tampilkan_buku()
-        # elif pilihan == "3":
-        #     edit_buku()
+        elif pilihan == "3":
+            edit_buku()
         # elif pilihan == "4":
         #     hapus_buku()
         # elif pilihan == "5":
