@@ -30,7 +30,6 @@ def kembalikan_buku():
     else:
         print("Buku dengan ID tersebut tidak ditemukan atau belum dipinjam.")
         
-        
 def tampilkan_riwayat(status=None):
     if status is None:
         print("\n=== Semua Riwayat Peminjaman ===")
