@@ -22,11 +22,23 @@ def edit_buku():
     else:
         print("Buku dengan ID tersebut tidak ditemukan.")
         
+def kembalikan_buku():
+    id_buku = input("Masukkan ID Buku yang ingin dikembalikan: ")
+
+    if daftar_buku.kembalikan_buku(id_buku):
+        print("Buku berhasil dikembalikan.")
+    else:
+        print("Buku dengan ID tersebut tidak ditemukan atau belum dipinjam.")
+        
         
 def tampilkan_riwayat(status=None):
-    pass
-    
-        
+    if status is None:
+        print("\n=== Semua Riwayat Peminjaman ===")
+    elif status == "Dipinjam":
+        print("\n=== Buku Yang Masih Dipinjam ===")
+
+    daftar_buku.tampilkan_riwayat(status)
+       
 def menu_utama():
     while True:
         print("\n=== SISTEM PERPUSTAKAAN ===")
@@ -54,12 +66,12 @@ def menu_utama():
         #     hapus_buku()
         # elif pilihan == "5":
         #     pinjam_buku()
-        # elif pilihan == "6":
-        #     kembalikan_buku()
-        # elif pilihan == "7":
-        #     tampilkan_riwayat()
-        # elif pilihan == "8":
-        #     tampilkan_riwayat("Dipinjam")
+        elif pilihan == "6":
+            kembalikan_buku()
+        elif pilihan == "7":
+            tampilkan_riwayat()
+        elif pilihan == "8":
+            tampilkan_riwayat("Dipinjam")
         # elif pilihan == "9":
         #     tampilkan_riwayat("Dikembalikan")
         elif pilihan == "0":

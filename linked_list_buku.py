@@ -15,7 +15,10 @@ class LinkedListBuku:
     def __init__(self):
         self.head = None
         self.path_file = "data/buku.json"
+        self.path_riwayat = "data/riwayat.json"
+        self.riwayat = []
         self.muat_dari_file()
+        self.muat_riwayat_dari_file()
 
     # TAMBAH BUKU
     def tambah_buku(self, id_buku, judul, penulis, stok):
@@ -67,6 +70,56 @@ class LinkedListBuku:
             sementara = sementara.next
             nomor += 1
 
+    # KEMBALIKAN BUKU
+    def kembalikan_buku(self, id_buku):
+        sementara = self.head
+
+        while sementara:
+            if sementara.id_buku == id_buku:
+                # Mencari riwayat peminjaman terakhir dengan status "Dipinjam"
+                for item in reversed(self.riwayat):
+                    if item["id_buku"] == id_buku and item["status"] == "Dipinjam":
+                        item["status"] = "Dikembalikan"  # ubah status
+                        sementara.stok += 1              # tambah stok buku
+                        self.simpan_ke_file()            # simpan perubahan buku
+                        self.simpan_riwayat_ke_file()    # simpan perubahan riwayat
+                        return True
+                return False
+            sementara = sementara.next
+
+        return False
+
+    # TAMPILKAN RIWAYAT
+    def tampilkan_riwayat(self, status=None):
+        if not self.riwayat:
+            print("Belum ada riwayat peminjaman.")
+            return
+
+        ditemukan = False
+        print("-" * 60)
+
+        for i, item in enumerate(self.riwayat, start=1):
+            # Filter berdasarkan status jika diberikan
+            if status is None or item["status"] == status:
+                ditemukan = True
+                print(f"{i}. ID Buku       : {item['id_buku']}")
+
+                if "judul" in item:
+                    print(f"   Judul         : {item['judul']}")
+
+                if "penulis" in item:
+                    print(f"   Penulis       : {item['penulis']}")
+
+                if "nama_peminjam" in item:
+                    print(f"   Nama Peminjam : {item['nama_peminjam']}")
+
+                print(f"   Status        : {item['status']}")
+                print("-" * 60)
+
+        if not ditemukan:
+            print("Data riwayat tidak ditemukan.")
+            print("-" * 60)
+
     # SIMPAN KE JSON
     def simpan_ke_file(self):
         os.makedirs("data", exist_ok=True)
@@ -115,3 +168,26 @@ class LinkedListBuku:
                 while sementara.next:
                     sementara = sementara.next
                 sementara.next = node_baru
+
+    # SIMPAN RIWAYAT KE JSON
+    # Digunakan untuk menyimpan data riwayat peminjaman ke file riwayat.json
+    def simpan_riwayat_ke_file(self):
+        os.makedirs("data", exist_ok=True)
+
+        with open(self.path_riwayat, "w") as file:
+            json.dump(self.riwayat, file, indent=4)
+
+    # MUAT RIWAYAT DARI JSON
+    # Digunakan untuk membaca riwayat peminjaman saat program dijalankan
+    def muat_riwayat_dari_file(self):
+        if not os.path.exists(self.path_riwayat):
+            return
+
+        if os.path.getsize(self.path_riwayat) == 0:
+            return
+
+        with open(self.path_riwayat, "r") as file:
+            try:
+                self.riwayat = json.load(file)
+            except json.JSONDecodeError:
+                self.riwayat = []
