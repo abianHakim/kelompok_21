@@ -21,6 +21,12 @@ def edit_buku():
         print("Buku berhasil diperbarui.")
     else:
         print("Buku dengan ID tersebut tidak ditemukan.")
+
+def hapus_buku():
+
+    id_buku = input("Masukkan ID buku yang ingin dihapus: ")
+
+    daftar_buku.hapus_buku(id_buku)
         
 def kembalikan_buku():
     id_buku = input("Masukkan ID Buku yang ingin dikembalikan: ")
@@ -45,11 +51,11 @@ def menu_utama():
         print("2. Tampilkan Buku")
         print("3. Edit Buku")
         print("4. Hapus Buku")
-        print("5. Pinjam Buku")
+        # print("5. Pinjam Buku")
         print("6. Kembalikan Buku")
         print("7. Lihat Semua Riwayat")
         print("8. Lihat Yang Masih Dipinjam")
-        print("9. Lihat Yang Sudah Dikembalikan")
+        # print("9. Lihat Yang Sudah Dikembalikan")
         print("0. Keluar")
 
         pilihan = input("Pilih menu: ")
@@ -61,8 +67,9 @@ def menu_utama():
         elif pilihan == "3":
             daftar_buku.tampilkan_buku()
             edit_buku()
-        # elif pilihan == "4":
-        #     hapus_buku()
+        elif pilihan == "4":
+            daftar_buku.tampilkan_buku()
+            hapus_buku()
         # elif pilihan == "5":
         #     pinjam_buku()
         elif pilihan == "6":

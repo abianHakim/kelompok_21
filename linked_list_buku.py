@@ -48,6 +48,34 @@ class LinkedListBuku:
             sementara = sementara.next
         
         return False
+    
+    # HAPUS BUKU
+    def hapus_buku(self, id_buku):
+        if not self.head:
+            print("data buku kosong")
+            return
+        
+        # Jika yang di hapus adalah head
+        if self.head.id_buku == id_buku:
+            self.head = self.head.next
+            self.simpan_ke_file()
+            print("Buku berhasil Dihapus")
+            return
+        
+        # cari node yang mau dihapus
+        sebelumnya = self.head
+        sekarang = self.head.next
+
+        while sekarang:
+            if sekarang.id_buku == id_buku:
+                sebelumnya.next = sekarang.next
+                self.simpan_ke_file()
+                print("buku berhasil dihapus")
+                return
+            sebelumnya = sekarang
+            sekarang = sekarang.next
+
+        print("buku tidak ditemukan")
 
     # TAMPILKAN BUKU
     def tampilkan_buku(self):
@@ -119,7 +147,7 @@ class LinkedListBuku:
         if not ditemukan:
             print("Data riwayat tidak ditemukan.")
             print("-" * 60)
-
+    # File Handling
     # SIMPAN KE JSON
     def simpan_ke_file(self):
         os.makedirs("data", exist_ok=True)
@@ -138,7 +166,7 @@ class LinkedListBuku:
 
         with open(self.path_file, "w") as file:
             json.dump(data, file, indent=4)
-
+    # FIle Handling
     # MUAT DARI JSON 
     def muat_dari_file(self):
         if not os.path.exists(self.path_file):
