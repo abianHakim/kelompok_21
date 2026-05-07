@@ -21,20 +21,7 @@ def edit_buku():
         print("Buku berhasil diperbarui.")
     else:
         print("Buku dengan ID tersebut tidak ditemukan.")
-
-def hapus_buku():
-
-    id_buku = input("Masukkan ID buku yang ingin dihapus: ")
-
-    daftar_buku.hapus_buku(id_buku)
         
-def kembalikan_buku():
-    id_buku = input("Masukkan ID Buku yang ingin dikembalikan: ")
-
-    if daftar_buku.kembalikan_buku(id_buku):
-        print("Buku berhasil dikembalikan.")
-    else:
-        print("Buku dengan ID tersebut tidak ditemukan atau belum dipinjam.")
         
 def tampilkan_riwayat(status=None):
     if status is None:
