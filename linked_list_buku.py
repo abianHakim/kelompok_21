@@ -22,6 +22,25 @@ class LinkedListBuku:
 
     # TAMBAH BUKU
     def tambah_buku(self, id_buku, judul, penulis, stok):
+        while True:
+            id_buku = id_buku.upper()
+
+            # pengecekan apakah id sudah ada
+            sementara = self.head
+            ditemukan = False
+
+            while sementara:
+                if sementara.id_buku == id_buku:
+                    ditemukan = True
+                    break
+                sementara = sementara.next
+
+            if ditemukan:
+                print("ID buku sudah digunakan, ID harus unik.")
+                id_buku = input("Masukkan ID Buku lain: ")
+            else:
+                break
+
         node_baru = NodeBuku(id_buku, judul, penulis, stok)
 
         if not self.head:
@@ -36,6 +55,8 @@ class LinkedListBuku:
 
     # EDIT BUKU
     def edit_buku(self, id_buku, judul=None, penulis=None, stok=None):
+
+        id_buku = id_buku.upper()
         sementara = self.head
         
         while sementara:
@@ -54,6 +75,8 @@ class LinkedListBuku:
 
     # PINJAM BUKU
     def pinjam_buku(self, id_buku, nama_peminjam):
+        id_buku = id_buku.upper()
+        nama_peminjam = nama_peminjam.lower()
         sementara = self.head
 
         while sementara:
@@ -78,6 +101,7 @@ class LinkedListBuku:
     
     # HAPUS BUKU
     def hapus_buku(self, id_buku):
+        id_buku = id_buku.upper()
         if not self.head:
             print("data buku kosong")
             return
@@ -127,6 +151,7 @@ class LinkedListBuku:
 
     # KEMBALIKAN BUKU
     def kembalikan_buku(self, id_buku):
+        id_buku = id_buku.upper()
         sementara = self.head
 
         while sementara:

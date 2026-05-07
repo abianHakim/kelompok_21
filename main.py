@@ -92,10 +92,13 @@ def menu_utama():
         elif pilihan == "2":
             daftar_buku.tampilkan_buku()
         elif pilihan == "3":
+            daftar_buku.tampilkan_buku()
             edit_buku()
         elif pilihan == "4":
+            daftar_buku.tampilkan_buku()
             hapus_buku()
         elif pilihan == "5":
+            daftar_buku.tampilkan_buku()
             pinjam_buku()
         elif pilihan == "6":
             kembalikan_buku()
