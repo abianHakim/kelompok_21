@@ -35,18 +35,45 @@ class LinkedListBuku:
         self.simpan_ke_file()
 
     # EDIT BUKU
-    def edit_buku(self, id_buku, judul, penulis, stok):
+    def edit_buku(self, id_buku, judul=None, penulis=None, stok=None):
         sementara = self.head
         
         while sementara:
             if sementara.id_buku == id_buku:
-                sementara.judul = judul
-                sementara.penulis = penulis
-                sementara.stok = stok
+                if judul is not None and judul != "":
+                    sementara.judul = judul
+                if penulis is not None and penulis != "":
+                    sementara.penulis = penulis
+                if stok is not None:
+                    sementara.stok = stok
                 self.simpan_ke_file()  # simpan setelah edit
                 return True
             sementara = sementara.next
         
+        return False
+
+    # PINJAM BUKU
+    def pinjam_buku(self, id_buku, nama_peminjam):
+        sementara = self.head
+
+        while sementara:
+            if sementara.id_buku == id_buku:
+                if sementara.stok <= 0:
+                    return None
+
+                sementara.stok -= 1
+                self.riwayat.append({
+                    "id_buku": sementara.id_buku,
+                    "judul": sementara.judul,
+                    "penulis": sementara.penulis,
+                    "nama_peminjam": nama_peminjam,
+                    "status": "Dipinjam"
+                })
+                self.simpan_ke_file()
+                self.simpan_riwayat_ke_file()
+                return True
+            sementara = sementara.next
+
         return False
     
     # HAPUS BUKU
