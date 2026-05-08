@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "id_buku": "BK01",
+        "judul": "Angsa Hitam",
+        "penulis": "smansul",
+        "stok": 5
+    }
+]

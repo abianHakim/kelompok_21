@@ -5,7 +5,18 @@ def tambah_buku():
     id_buku = input("Masukkan ID Buku: ")
     judul = input("Masukkan Judul: ")
     penulis = input("Masukkan Penulis: ")
-    stok = int(input("Masukkan Stok Buku: "))
+    while True:
+        try:
+            stok = int(input("Masukkan Stok Buku: "))
+
+            if stok < 0:
+                print("Stok tidak boleh negatif.")
+                continue
+
+            break
+
+        except ValueError:
+            print("Input harus berupa angka.")
 
     daftar_buku.tambah_buku(id_buku, judul, penulis, stok)
     print("Buku berhasil ditambahkan.")
@@ -16,15 +27,25 @@ def edit_buku():
     print("Kosongkan input jika tidak ingin mengubah data.")
     judul = input("Masukkan Judul Baru: ").strip()
     penulis = input("Masukkan Penulis Baru: ").strip()
-    stok_input = input("Masukkan Stok Baru: ").strip()
 
     stok = None
-    if stok_input:
+    while True:
+        stok_input = input("Masukkan Stok Baru: ").strip()
+
+        if stok_input == "":
+            break
+
         try:
             stok = int(stok_input)
+
+            if stok < 0:
+                print("Stok tidak boleh negatif.")
+                continue
+
+            break
+
         except ValueError:
             print("Stok harus berupa angka.")
-            return
 
     if daftar_buku.edit_buku(
         id_buku,
