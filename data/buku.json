@@ -1,8 +1,62 @@
 [
     {
-        "id_buku": "BK01",
-        "judul": "Angsa Hitam",
-        "penulis": "smansul",
-        "stok": 5
+        "id_buku": "J01",
+        "judul": "fisika dasar",
+        "penulis": "issac",
+        "stok": 50
+    },
+    {
+        "id_buku": "J02",
+        "judul": "matematika terapan",
+        "penulis": "aziezah",
+        "stok": 49
+    },
+    {
+        "id_buku": "J03",
+        "judul": "algoritma pemrograman",
+        "penulis": "budi santoso",
+        "stok": 35
+    },
+    {
+        "id_buku": "J04",
+        "judul": "struktur data",
+        "penulis": "rahmat hidayat",
+        "stok": 40
+    },
+    {
+        "id_buku": "J05",
+        "judul": "basis data",
+        "penulis": "nabila putri",
+        "stok": 27
+    },
+    {
+        "id_buku": "J06",
+        "judul": "jaringan komputer",
+        "penulis": "andika pratama",
+        "stok": 18
+    },
+    {
+        "id_buku": "J07",
+        "judul": "kecerdasan buatan",
+        "penulis": "dewi lestari",
+        "stok": 22
+    },
+    {
+        "id_buku": "J08",
+        "judul": "pemrograman python",
+        "penulis": "fajar ramadhan",
+        "stok": 31
+    },
+    {
+        "id_buku": "J09",
+        "judul": "sistem operasi",
+        "penulis": "yusuf maulana",
+        "stok": 16
+    },
+    {
+        "id_buku": "J10",
+        "judul": "rekayasa perangkat lunak",
+        "penulis": "sinta amelia",
+        "stok": 25
     }
 ]

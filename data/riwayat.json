@@ -1,0 +1,18 @@
+[
+    {
+        "id_peminjaman": "P001",
+        "id_buku": "J01",
+        "judul": "fisika dasar",
+        "penulis": "issac",
+        "nama_peminjam": "rheika",
+        "status": "Dikembalikan"
+    },
+    {
+        "id_peminjaman": "P002",
+        "id_buku": "J02",
+        "judul": "matematika terapan",
+        "penulis": "aziezah",
+        "nama_peminjam": "rheika",
+        "status": "Dipinjam"
+    }
+]

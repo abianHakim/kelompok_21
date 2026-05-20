@@ -53,12 +53,25 @@ class LinkedListBuku:
 
         self.simpan_ke_file()
 
+# CARI BUKU BERDASARKAN ID
+    def cari_buku(self, id_buku):
+        id_buku = id_buku.upper()
+
+        sementara = self.head
+
+        while sementara:
+            if sementara.id_buku == id_buku:
+                return True
+            sementara = sementara.next
+
+        return False
+
+
     # EDIT BUKU
     def edit_buku(self, id_buku, judul=None, penulis=None, stok=None):
-
         id_buku = id_buku.upper()
         sementara = self.head
-        
+
         while sementara:
             if sementara.id_buku == id_buku:
                 if judul is not None and judul != "":
@@ -67,34 +80,51 @@ class LinkedListBuku:
                     sementara.penulis = penulis
                 if stok is not None:
                     sementara.stok = stok
-                self.simpan_ke_file()  # simpan setelah edit
+                self.simpan_ke_file()
                 return True
             sementara = sementara.next
-        
+
         return False
+
+    # GENERATE ID PEMINJAMAN
+    def generate_id_peminjaman(self):
+
+        nomor = len(self.riwayat) + 1
+
+        return f"P{nomor:03}"
 
     # PINJAM BUKU
     def pinjam_buku(self, id_buku, nama_peminjam):
         id_buku = id_buku.upper()
         nama_peminjam = nama_peminjam.lower()
+
         sementara = self.head
 
         while sementara:
+
             if sementara.id_buku == id_buku:
+
                 if sementara.stok <= 0:
                     return None
 
                 sementara.stok -= 1
+
+                id_peminjaman = self.generate_id_peminjaman()
+
                 self.riwayat.append({
+                    "id_peminjaman": id_peminjaman,
                     "id_buku": sementara.id_buku,
                     "judul": sementara.judul,
                     "penulis": sementara.penulis,
                     "nama_peminjam": nama_peminjam,
                     "status": "Dipinjam"
                 })
+
                 self.simpan_ke_file()
                 self.simpan_riwayat_ke_file()
-                return True
+
+                return id_peminjaman
+
             sementara = sementara.next
 
         return False
@@ -102,18 +132,17 @@ class LinkedListBuku:
     # HAPUS BUKU
     def hapus_buku(self, id_buku):
         id_buku = id_buku.upper()
+
         if not self.head:
-            print("data buku kosong")
-            return
-        
-        # Jika yang di hapus adalah head
+            print("Data buku kosong.")
+            return False
+
+        # jika yang dihapus adalah head
         if self.head.id_buku == id_buku:
             self.head = self.head.next
             self.simpan_ke_file()
-            print("Buku berhasil Dihapus")
-            return
-        
-        # cari node yang mau dihapus
+            return True
+
         sebelumnya = self.head
         sekarang = self.head.next
 
@@ -121,12 +150,12 @@ class LinkedListBuku:
             if sekarang.id_buku == id_buku:
                 sebelumnya.next = sekarang.next
                 self.simpan_ke_file()
-                print("buku berhasil dihapus")
-                return
+                return True
+
             sebelumnya = sekarang
             sekarang = sekarang.next
 
-        print("buku tidak ditemukan")
+        return False
 
     # TAMPILKAN BUKU
     def tampilkan_buku(self):
@@ -149,24 +178,147 @@ class LinkedListBuku:
             sementara = sementara.next
             nomor += 1
 
-    # KEMBALIKAN BUKU
-    def kembalikan_buku(self, id_buku):
-        id_buku = id_buku.upper()
-        sementara = self.head
+            # PROSES PENGEMBALIAN
+    def proses_pengembalian(self):
 
-        while sementara:
-            if sementara.id_buku == id_buku:
-                # Mencari riwayat peminjaman terakhir dengan status "Dipinjam"
-                for item in reversed(self.riwayat):
-                    if item["id_buku"] == id_buku and item["status"] == "Dipinjam":
-                        item["status"] = "Dikembalikan"  # ubah status
-                        sementara.stok += 1              # tambah stok buku
-                        self.simpan_ke_file()            # simpan perubahan buku
-                        self.simpan_riwayat_ke_file()    # simpan perubahan riwayat
+        print("\n=== PENGEMBALIAN BUKU ===")
+        print("1. Gunakan ID Peminjaman")
+        print("2. Gunakan Nama Peminjam")
+
+        pilihan = input("Pilih opsi: ")
+
+        if pilihan == "1":
+
+            while True:
+                id_peminjaman = input(
+                    "Masukkan ID Peminjaman: "
+                ).upper()
+
+                data = self.cari_peminjaman(id_peminjaman)
+
+                if data:
+                    break
+
+                print("ID peminjaman tidak ditemukan.")
+
+        elif pilihan == "2":
+
+            while True:
+                nama = input(
+                    "Masukkan Nama Peminjam: "
+                ).strip().lower()
+
+                daftar_pinjaman = self.cari_pinjaman_nama(nama)
+
+                if daftar_pinjaman:
+                    break
+
+                print("Data peminjaman tidak ditemukan.")
+
+            print("\n=== DAFTAR PINJAMAN ===")
+
+            for item in daftar_pinjaman:
+                print(
+                    f"{item['id_peminjaman']} - "
+                    f"{item['judul']}"
+                )
+
+            while True:
+
+                id_peminjaman = input(
+                    "Masukkan ID Peminjaman: "
+                ).upper()
+
+                data = self.cari_peminjaman(id_peminjaman)
+
+                if data and data["nama_peminjam"] == nama:
+                    break
+
+                print("ID peminjaman tidak sesuai.")
+
+        else:
+            print("Pilihan tidak valid.")
+            return
+
+      
+        print("\n=== DATA PEMINJAMAN ===")
+        print(f"ID Peminjaman : {data['id_peminjaman']}")
+        print(f"Judul Buku    : {data['judul']}")
+        print(f"Nama Peminjam : {data['nama_peminjam']}")
+
+        print("\n1. Setuju")
+        print("2. Batal")
+
+        konfirmasi = input("Pilih opsi: ")
+
+        if konfirmasi == "1":
+
+            if self.kembalikan_buku(
+                data["id_peminjaman"]
+            ):
+                print("Buku berhasil dikembalikan.")
+
+        elif konfirmasi == "2":
+            print("Pengembalian dibatalkan.")
+
+
+        # CARI PEMINJAMAN BERDASARKAN ID
+    def cari_peminjaman(self, id_peminjaman):
+
+        id_peminjaman = id_peminjaman.upper()
+
+        for item in self.riwayat:
+
+            if (
+                item["id_peminjaman"] == id_peminjaman
+                and item["status"] == "Dipinjam"
+            ):
+                return item
+
+        return None
+    
+    # CARI PINJAMAN BERDASARKAN NAMA
+    def cari_pinjaman_nama(self, nama):
+
+        nama = nama.lower()
+
+        hasil = []
+
+        for item in self.riwayat:
+
+            if (
+                item["nama_peminjam"] == nama
+                and item["status"] == "Dipinjam"
+            ):
+                hasil.append(item)
+
+        return hasil
+
+        # logika pegenmablian buku
+    def kembalikan_buku(self, id_peminjaman):
+
+        id_peminjaman = id_peminjaman.upper()
+
+        for item in self.riwayat:
+
+            if (
+                item["id_peminjaman"] == id_peminjaman
+                and item["status"] == "Dipinjam"
+            ):
+
+                sementara = self.head
+                while sementara:
+                    if sementara.id_buku == item["id_buku"]:
+
+                        sementara.stok += 1
+                        item["status"] = "Dikembalikan"
+
+                        self.simpan_ke_file()
+                        self.simpan_riwayat_ke_file()
+
                         return True
-                return False
-            sementara = sementara.next
 
+                    sementara = sementara.next
         return False
 
     # TAMPILKAN RIWAYAT

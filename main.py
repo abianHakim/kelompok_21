@@ -22,16 +22,26 @@ def tambah_buku():
     print("Buku berhasil ditambahkan.")
 
 def edit_buku():
-    id_buku = input("Masukkan ID Buku yang ingin diedit: ")
+
+    while True:
+        id_buku = input("Masukkan ID Buku yang ingin diedit: ").upper()
+
+        if daftar_buku.cari_buku(id_buku):
+            break
+        else:
+            print("ID buku tidak ditemukan, coba lagi.")
 
     print("Kosongkan input jika tidak ingin mengubah data.")
+
     judul = input("Masukkan Judul Baru: ").strip()
     penulis = input("Masukkan Penulis Baru: ").strip()
 
     stok = None
+
     while True:
         stok_input = input("Masukkan Stok Baru: ").strip()
 
+        # jika kosong → tidak diubah
         if stok_input == "":
             break
 
@@ -54,25 +64,37 @@ def edit_buku():
         stok
     ):
         print("Buku berhasil diperbarui.")
-    else:
-        print("Buku dengan ID tersebut tidak ditemukan.")
         
 
 def pinjam_buku():
-    id_buku = input("Masukkan ID Buku yang ingin dipinjam: ")
-    nama_peminjam = input("Masukkan Nama Peminjam: ").strip()
 
-    if not nama_peminjam:
-        print("Nama peminjam tidak boleh kosong.")
-        return
+    while True:
+        id_buku = input("Masukkan ID Buku yang ingin dipinjam: ").upper()
+
+        if daftar_buku.cari_buku(id_buku):
+            break
+        else:
+            print("ID buku tidak ditemukan, coba lagi.")
+
+    while True:
+        nama_peminjam = input("Masukkan Nama Peminjam: ").strip().lower()
+
+        if nama_peminjam:
+            break
+        else:
+            print("Nama peminjam tidak boleh kosong.")
 
     hasil = daftar_buku.pinjam_buku(id_buku, nama_peminjam)
-    if hasil is True:
-        print("Buku berhasil dipinjam.")
-    elif hasil is None:
+
+    if hasil is None:
         print("Stok buku habis.")
+
+    elif hasil is False:
+        print("Buku gagal dipinjam.")
+
     else:
-        print("Buku dengan ID tersebut tidak ditemukan.")
+        print("Buku berhasil dipinjam.")
+        print(f"ID Peminjaman: {hasil}")
         
         
 def tampilkan_riwayat(status=None):
@@ -80,17 +102,19 @@ def tampilkan_riwayat(status=None):
     
 def hapus_buku():
 
-    id_buku = input("Masukkan ID buku yang ingin dihapus: ")
+    while True:
+        id_buku = input("Masukkan ID buku yang ingin dihapus: ").upper()
 
-    daftar_buku.hapus_buku(id_buku)
+        if daftar_buku.cari_buku(id_buku):
+            break
+        else:
+            print("ID buku tidak ditemukan, coba lagi.")
+
+    if daftar_buku.hapus_buku(id_buku):
+        print("Buku berhasil dihapus.")
         
 def kembalikan_buku():
-    id_buku = input("Masukkan ID Buku yang ingin dikembalikan: ")
-
-    if daftar_buku.kembalikan_buku(id_buku):
-        print("Buku berhasil dikembalikan.")
-    else:
-        print("Buku dengan ID tersebut tidak ditemukan atau belum dipinjam.")
+    daftar_buku.proses_pengembalian()
         
 def menu_utama():
     while True:
@@ -115,6 +139,7 @@ def menu_utama():
         elif pilihan == "3":
             daftar_buku.tampilkan_buku()
             edit_buku()
+            daftar_buku.tampilkan_buku()
         elif pilihan == "4":
             daftar_buku.tampilkan_buku()
             hapus_buku()
