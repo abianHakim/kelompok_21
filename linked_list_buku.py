@@ -22,24 +22,8 @@ class LinkedListBuku:
 
     # TAMBAH BUKU
     def tambah_buku(self, id_buku, judul, penulis, stok):
-        while True:
-            id_buku = id_buku.upper()
 
-            # pengecekan apakah id sudah ada
-            sementara = self.head
-            ditemukan = False
-
-            while sementara:
-                if sementara.id_buku == id_buku:
-                    ditemukan = True
-                    break
-                sementara = sementara.next
-
-            if ditemukan:
-                print("ID buku sudah digunakan, ID harus unik.")
-                id_buku = input("Masukkan ID Buku lain: ")
-            else:
-                break
+        id_buku = id_buku.upper()
 
         node_baru = NodeBuku(id_buku, judul, penulis, stok)
 
@@ -53,7 +37,7 @@ class LinkedListBuku:
 
         self.simpan_ke_file()
 
-# CARI BUKU BERDASARKAN ID
+    # CARI BUKU BERDASARKAN ID
     def cari_buku(self, id_buku):
         id_buku = id_buku.upper()
 
@@ -92,6 +76,21 @@ class LinkedListBuku:
         nomor = len(self.riwayat) + 1
 
         return f"P{nomor:03}"
+    
+
+    # CEK STOK BUKU
+    def cek_stok_buku(self, id_buku):
+        id_buku = id_buku.upper()
+
+        sementara = self.head
+
+        while sementara:
+            if sementara.id_buku == id_buku:
+                return sementara.stok
+
+            sementara = sementara.next
+
+        return None
 
     # PINJAM BUKU
     def pinjam_buku(self, id_buku, nama_peminjam):

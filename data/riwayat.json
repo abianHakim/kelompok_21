@@ -1,18 +1,26 @@
 [
     {
-        "id_peminjaman": "P001",
-        "id_buku": "J01",
-        "judul": "fisika dasar",
-        "penulis": "issac",
-        "nama_peminjam": "rheika",
-        "status": "Dikembalikan"
-    },
-    {
         "id_peminjaman": "P002",
         "id_buku": "J02",
         "judul": "matematika terapan",
         "penulis": "aziezah",
         "nama_peminjam": "rheika",
         "status": "Dikembalikan"
+    },
+    {
+        "id_peminjaman": "P002",
+        "id_buku": "J08",
+        "judul": "pemrograman python",
+        "penulis": "fajar ramadhan",
+        "nama_peminjam": "abian",
+        "status": "Dikembalikan"
+    },
+    {
+        "id_peminjaman": "P003",
+        "id_buku": "J08",
+        "judul": "pemrograman python",
+        "penulis": "fajar ramadhan",
+        "nama_peminjam": "abian",
+        "status": "Dipinjam"
     }
 ]

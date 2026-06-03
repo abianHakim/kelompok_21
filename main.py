@@ -2,9 +2,32 @@ from linked_list_buku import LinkedListBuku
 daftar_buku = LinkedListBuku()
 
 def tambah_buku():
-    id_buku = input("Masukkan ID Buku: ")
-    judul = input("Masukkan Judul: ")
-    penulis = input("Masukkan Penulis: ")
+    while True:
+        id_buku = input("Masukkan ID Buku: ").strip().upper()
+
+        if not id_buku:
+            print("ID buku tidak boleh kosong.")
+            continue
+
+        if daftar_buku.cari_buku(id_buku):
+            print("ID buku sudah digunakan, ID harus unik.")
+            continue
+
+        break
+    while True:
+        judul = input("Masukkan Judul: ").strip()
+
+        if judul:
+            break
+
+        print("Judul tidak boleh kosong.")
+    while True:
+        penulis = input("Masukkan Penulis: ").strip()
+
+        if penulis:
+            break
+
+        print("Penulis tidak boleh kosong.")
     while True:
         try:
             stok = int(input("Masukkan Stok Buku: "))
@@ -76,6 +99,10 @@ def pinjam_buku():
         else:
             print("ID buku tidak ditemukan, coba lagi.")
 
+    if daftar_buku.cek_stok_buku(id_buku) <= 0:
+        print("Stok buku habis.")
+        return
+
     while True:
         nama_peminjam = input("Masukkan Nama Peminjam: ").strip().lower()
 
@@ -86,10 +113,7 @@ def pinjam_buku():
 
     hasil = daftar_buku.pinjam_buku(id_buku, nama_peminjam)
 
-    if hasil is None:
-        print("Stok buku habis.")
-
-    elif hasil is False:
+    if hasil is False:
         print("Buku gagal dipinjam.")
 
     else:

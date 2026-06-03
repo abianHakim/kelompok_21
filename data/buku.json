@@ -1,11 +1,5 @@
 [
     {
-        "id_buku": "J01",
-        "judul": "fisika dasar",
-        "penulis": "issac",
-        "stok": 50
-    },
-    {
         "id_buku": "J02",
         "judul": "matematika terapan",
         "penulis": "aziezah",
@@ -45,18 +39,12 @@
         "id_buku": "J08",
         "judul": "pemrograman python",
         "penulis": "fajar ramadhan",
-        "stok": 31
+        "stok": 30
     },
     {
         "id_buku": "J09",
         "judul": "sistem operasi",
         "penulis": "yusuf maulana",
-        "stok": 16
-    },
-    {
-        "id_buku": "J10",
-        "judul": "rekayasa perangkat lunak",
-        "penulis": "sinta amelia",
-        "stok": 25
+        "stok": 0
     }
 ]
