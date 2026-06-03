@@ -46,5 +46,11 @@
         "judul": "sistem operasi",
         "penulis": "yusuf maulana",
         "stok": 0
+    },
+    {
+        "id_buku": "J10",
+        "judul": "sejarah jaringan",
+        "penulis": "terelie",
+        "stok": 50
     }
 ]

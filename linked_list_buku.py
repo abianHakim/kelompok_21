@@ -50,6 +50,19 @@ class LinkedListBuku:
 
         return False
 
+    # AMBIL DATA BUKU BERDASARKAN ID
+    def get_buku(self, id_buku):
+        id_buku = id_buku.upper()
+
+        sementara = self.head
+
+        while sementara:
+            if sementara.id_buku == id_buku:
+                return sementara
+
+            sementara = sementara.next
+
+        return None
 
     # EDIT BUKU
     def edit_buku(self, id_buku, judul=None, penulis=None, stok=None):

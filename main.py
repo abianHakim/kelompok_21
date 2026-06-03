@@ -47,14 +47,24 @@ def tambah_buku():
 def edit_buku():
 
     while True:
-        id_buku = input("Masukkan ID Buku yang ingin diedit: ").upper()
+        id_buku = input(
+            "Masukkan ID Buku yang ingin diedit: "
+        ).upper()
 
-        if daftar_buku.cari_buku(id_buku):
+        buku = daftar_buku.get_buku(id_buku)
+
+        if buku:
             break
-        else:
-            print("ID buku tidak ditemukan, coba lagi.")
 
-    print("Kosongkan input jika tidak ingin mengubah data.")
+        print("ID buku tidak ditemukan, coba lagi.")
+
+    print("\n=== DATA BUKU SAAT INI ===")
+    print(f"ID Buku : {buku.id_buku}")
+    print(f"Judul   : {buku.judul}")
+    print(f"Penulis : {buku.penulis}")
+    print(f"Stok    : {buku.stok}")
+
+    print("\nKosongkan input jika tidak ingin mengubah data.")
 
     judul = input("Masukkan Judul Baru: ").strip()
     penulis = input("Masukkan Penulis Baru: ").strip()
@@ -62,9 +72,10 @@ def edit_buku():
     stok = None
 
     while True:
+
         stok_input = input("Masukkan Stok Baru: ").strip()
 
-        # jika kosong → tidak diubah
+        # tidak diubah
         if stok_input == "":
             break
 
