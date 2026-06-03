@@ -180,86 +180,115 @@ class LinkedListBuku:
             # PROSES PENGEMBALIAN
     def proses_pengembalian(self):
 
-        print("\n=== PENGEMBALIAN BUKU ===")
-        print("1. Gunakan ID Peminjaman")
-        print("2. Gunakan Nama Peminjam")
+        while True:
 
-        pilihan = input("Pilih opsi: ")
+            print("\n=== PENGEMBALIAN BUKU ===")
+            print("1. Gunakan ID Peminjaman")
+            print("2. Gunakan Nama Peminjam")
 
-        if pilihan == "1":
+            pilihan = input("Pilih opsi: ")
 
-            while True:
-                id_peminjaman = input(
-                    "Masukkan ID Peminjaman: "
-                ).upper()
+            # PENGEMBALIAN DENGAN ID
+            if pilihan == "1":
 
-                data = self.cari_peminjaman(id_peminjaman)
+                while True:
 
-                if data:
-                    break
+                    id_peminjaman = input(
+                        "Masukkan ID Peminjaman (0 untuk kembali): "
+                    ).upper()
 
-                print("ID peminjaman tidak ditemukan.")
+                    if id_peminjaman == "0":
+                        break
 
-        elif pilihan == "2":
+                    data = self.cari_peminjaman(id_peminjaman)
 
-            while True:
-                nama = input(
-                    "Masukkan Nama Peminjam: "
-                ).strip().lower()
+                    if data:
+                        break
 
-                daftar_pinjaman = self.cari_pinjaman_nama(nama)
+                    print("ID peminjaman tidak ditemukan.")
 
-                if daftar_pinjaman:
-                    break
+                if id_peminjaman == "0":
+                    continue
 
-                print("Data peminjaman tidak ditemukan.")
+            # PENGEMBALIAN DENGAN NAMA
+            elif pilihan == "2":
 
-            print("\n=== DAFTAR PINJAMAN ===")
+                while True:
 
-            for item in daftar_pinjaman:
-                print(
-                    f"{item['id_peminjaman']} - "
-                    f"{item['judul']}"
-                )
+                    nama = input(
+                        "Masukkan Nama Peminjam (0 untuk kembali): "
+                    ).strip().lower()
 
-            while True:
+                    if nama == "0":
+                        break
 
-                id_peminjaman = input(
-                    "Masukkan ID Peminjaman: "
-                ).upper()
+                    daftar_pinjaman = self.cari_pinjaman_nama(nama)
 
-                data = self.cari_peminjaman(id_peminjaman)
+                    if daftar_pinjaman:
+                        break
 
-                if data and data["nama_peminjam"] == nama:
-                    break
+                    print("Data peminjaman tidak ditemukan.")
 
-                print("ID peminjaman tidak sesuai.")
+                if nama == "0":
+                    continue
 
-        else:
-            print("Pilihan tidak valid.")
-            return
+                print("\n=== DAFTAR PINJAMAN ===")
 
-      
-        print("\n=== DATA PEMINJAMAN ===")
-        print(f"ID Peminjaman : {data['id_peminjaman']}")
-        print(f"Judul Buku    : {data['judul']}")
-        print(f"Nama Peminjam : {data['nama_peminjam']}")
+                for item in daftar_pinjaman:
+                    print(
+                        f"{item['id_peminjaman']} - "
+                        f"{item['judul']}"
+                    )
 
-        print("\n1. Setuju")
-        print("2. Batal")
+                while True:
 
-        konfirmasi = input("Pilih opsi: ")
+                    id_peminjaman = input(
+                        "Masukkan ID Peminjaman (0 untuk kembali): "
+                    ).upper()
 
-        if konfirmasi == "1":
+                    if id_peminjaman == "0":
+                        break
 
-            if self.kembalikan_buku(
-                data["id_peminjaman"]
-            ):
-                print("Buku berhasil dikembalikan.")
+                    data = self.cari_peminjaman(id_peminjaman)
 
-        elif konfirmasi == "2":
-            print("Pengembalian dibatalkan.")
+                    if data and data["nama_peminjam"] == nama:
+                        break
 
+                    print("ID peminjaman tidak sesuai.")
+
+                if id_peminjaman == "0":
+                    continue
+
+            else:
+                print("Pilihan tidak valid.")
+                continue
+
+            # KONFIRMASI
+            print("\n=== DATA PEMINJAMAN ===")
+            print(f"ID Peminjaman : {data['id_peminjaman']}")
+            print(f"Judul Buku    : {data['judul']}")
+            print(f"Nama Peminjam : {data['nama_peminjam']}")
+
+            print("\n1. Setuju")
+            print("2. Batal")
+
+            konfirmasi = input("Pilih opsi: ")
+
+            if konfirmasi == "1":
+
+                if self.kembalikan_buku(
+                    data["id_peminjaman"]
+                ):
+                    print("Buku berhasil dikembalikan.")
+
+                return
+
+            elif konfirmasi == "2":
+                print("Pengembalian dibatalkan.")
+                return
+
+            else:
+                print("Pilihan tidak valid.")
 
         # CARI PEMINJAMAN BERDASARKAN ID
     def cari_peminjaman(self, id_peminjaman):
