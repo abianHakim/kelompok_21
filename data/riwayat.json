@@ -30,5 +30,13 @@
         "penulis": "rheika",
         "nama_peminjam": "zahra",
         "status": "Dikembalikan"
+    },
+    {
+        "id_peminjaman": "P005",
+        "id_buku": "J11",
+        "judul": "matematika dasar",
+        "penulis": "rheika",
+        "nama_peminjam": "abian",
+        "status": "Dikembalikan"
     }
 ]
