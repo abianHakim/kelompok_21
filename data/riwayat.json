@@ -22,5 +22,13 @@
         "penulis": "fajar ramadhan",
         "nama_peminjam": "abian",
         "status": "Dipinjam"
+    },
+    {
+        "id_peminjaman": "P004",
+        "id_buku": "J11",
+        "judul": "matematika dasar",
+        "penulis": "rheika",
+        "nama_peminjam": "zahra",
+        "status": "Dikembalikan"
     }
 ]

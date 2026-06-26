@@ -36,12 +36,6 @@
         "stok": 22
     },
     {
-        "id_buku": "J08",
-        "judul": "pemrograman python",
-        "penulis": "fajar ramadhan",
-        "stok": 30
-    },
-    {
         "id_buku": "J09",
         "judul": "sistem operasi",
         "penulis": "yusuf maulana",
@@ -52,5 +46,11 @@
         "judul": "sejarah jaringan",
         "penulis": "terelie",
         "stok": 50
+    },
+    {
+        "id_buku": "J11",
+        "judul": "matematika dasar",
+        "penulis": "rheika",
+        "stok": 20
     }
 ]
